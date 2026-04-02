@@ -1,726 +1,266 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KAYSSITE</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap');
 
-    :root {
-      --bg-1: #070312;
-      --bg-2: #120726;
-      --panel: rgba(15, 10, 35, 0.72);
-      --panel-strong: rgba(20, 12, 45, 0.9);
-      --text: #f5f7ff;
-      --muted: rgba(245,247,255,0.72);
-      --line: rgba(0,240,255,0.28);
-      --pink: #ff4f9a;
-      --blue: #59f3ff;
-      --purple: #b86dff;
-      --yellow: #ffd84d;
-      --shadow: 0 18px 60px rgba(0,0,0,0.45);
-      --radius: 24px;
-      --max: 1120px;
+    :root{
+      --text:#fff9ea;
+      --soft:rgba(255,249,234,.84);
+      --gold:#f8de8b;
+      --line:rgba(255,255,255,.26);
+      --panel:rgba(24,18,24,.34);
+      --panel-border:rgba(255,238,194,.28);
+      --shadow:rgba(0,0,0,.38);
+      --cyan:#59e1ff;
+      --violet:#b44cff;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *{box-sizing:border-box;margin:0;padding:0}
 
-    html { scroll-behavior: smooth; }
-
-    body {
-      min-height: 100vh;
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
+    body{
+      min-height:100vh;
+      font-family:'Inter',sans-serif;
+      color:var(--text);
       background:
-        radial-gradient(circle at top center, rgba(255,79,154,0.10), transparent 30%),
-        radial-gradient(circle at 20% 20%, rgba(89,243,255,0.10), transparent 25%),
-        linear-gradient(180deg, var(--bg-2) 0%, var(--bg-1) 48%, #05010f 100%);
-      overflow-x: hidden;
+        linear-gradient(rgba(25,15,10,.18), rgba(25,15,10,.32)),
+        url('retro-landscape.png') center center / cover no-repeat fixed;
+      overflow-x:hidden;
+      position:relative;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(rgba(255,255,255,0.015), rgba(255,255,255,0));
-      pointer-events: none;
-      z-index: 50;
-    }
-
-    .stars,
-    .aurora,
-    .grid-floor,
-    .sun,
-    .mountains { pointer-events: none; }
-
-    .stars {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-    }
-
-    .star {
-      position: absolute;
-      border-radius: 50%;
-      background: white;
-      box-shadow: 0 0 8px rgba(255,255,255,0.8);
-      animation: twinkle var(--d, 3.5s) ease-in-out infinite;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.15; transform: scale(1); }
-      50% { opacity: 0.95; transform: scale(1.15); }
-    }
-
-    .aurora {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .aurora::before,
-    .aurora::after {
-      content: '';
-      position: absolute;
-      width: 60vw;
-      height: 60vw;
-      border-radius: 50%;
-      filter: blur(90px);
-      opacity: 0.14;
-      animation: floatBlob 16s ease-in-out infinite;
-    }
-
-    .aurora::before {
-      background: var(--blue);
-      top: -10vw;
-      left: -10vw;
-    }
-
-    .aurora::after {
-      background: var(--pink);
-      right: -10vw;
-      top: 6vw;
-      animation-delay: -8s;
-    }
-
-    @keyframes floatBlob {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(5vw, 3vw) scale(1.08); }
-    }
-
-    .sun {
-      position: fixed;
-      left: 50%;
-      bottom: 22vh;
-      transform: translateX(-50%);
-      width: min(34vw, 420px);
-      aspect-ratio: 2 / 1;
-      border-radius: 999px 999px 0 0;
-      background: linear-gradient(180deg, var(--yellow) 0%, #ff9b3f 45%, var(--pink) 100%);
-      box-shadow: 0 0 40px rgba(255,216,77,0.28), 0 0 100px rgba(255,79,154,0.30);
-      overflow: hidden;
-      z-index: 0;
-      opacity: 0.95;
-    }
-
-    .sun::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        180deg,
-        transparent 0,
-        transparent 14px,
-        rgba(7,3,18,0.95) 14px,
-        rgba(7,3,18,0.95) 18px
-      );
-    }
-
-    .mountains {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 22vh;
-      height: 220px;
-      z-index: 1;
-      opacity: 0.95;
-    }
-
-    .mountains svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    .grid-floor {
-      position: fixed;
-      inset: auto 0 0;
-      height: 32vh;
+    body::before{
+      content:'';
+      position:fixed;
+      inset:0;
       background:
-        linear-gradient(rgba(89,243,255,0.18) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(89,243,255,0.18) 1px, transparent 1px);
-      background-size: 58px 58px;
-      transform: perspective(420px) rotateX(70deg);
-      transform-origin: bottom center;
-      z-index: 0;
-      mask-image: linear-gradient(to top, black 65%, transparent 100%);
+        radial-gradient(circle at 50% 18%, rgba(255,241,179,.16), transparent 32%),
+        linear-gradient(180deg, rgba(255,240,195,.08), transparent 28%, rgba(255,210,120,.08) 72%, rgba(20,12,16,.12) 100%),
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,.035) 0,
+          rgba(255,255,255,.035) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      pointer-events:none;
+      z-index:0;
     }
 
-    .page {
-      position: relative;
-      z-index: 3;
-      width: min(var(--max), calc(100% - 32px));
-      margin: 0 auto;
-      padding: 24px 0 56px;
+    .glow{
+      position:fixed;
+      inset:auto 0 0 0;
+      height:36vh;
+      background:linear-gradient(180deg, transparent, rgba(255,190,90,.08) 40%, rgba(255,190,90,.16));
+      pointer-events:none;
+      z-index:0;
     }
 
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 10px 18px;
-      margin: 0 auto 36px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(8, 8, 20, 0.35);
-      backdrop-filter: blur(16px);
-      border-radius: 999px;
-      box-shadow: var(--shadow);
+    .page{
+      position:relative;
+      z-index:1;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:2rem;
     }
 
-    .brand {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.95rem;
-      letter-spacing: 0.22em;
-      color: var(--blue);
-      text-shadow: 0 0 12px rgba(89,243,255,0.45);
-      white-space: nowrap;
+    .hero{
+      width:min(980px,100%);
+      text-align:center;
+      padding:clamp(1.4rem,3vw,2rem);
     }
 
-    .nav-links {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+    .badge{
+      display:inline-block;
+      margin-bottom:1rem;
+      padding:.55rem .95rem;
+      border:1px solid rgba(255,255,255,.24);
+      border-radius:999px;
+      background:rgba(255,255,255,.10);
+      backdrop-filter:blur(8px);
+      font-size:.78rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--gold);
+      font-weight:700;
+      text-shadow:0 1px 8px rgba(0,0,0,.25);
     }
 
-    .nav a,
-    .button {
-      color: var(--text);
-      text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      padding: 10px 16px;
-      border-radius: 999px;
-      font-size: 0.92rem;
-      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-    }
-
-    .nav a:hover,
-    .button:hover {
-      transform: translateY(-1px);
-      border-color: rgba(89,243,255,0.45);
-      background: rgba(89,243,255,0.08);
-    }
-
-    .hero {
-      min-height: 68vh;
-      display: grid;
-      align-items: center;
-      padding: 30px 0 50px;
-    }
-
-    .hero-panel {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 28px;
-      align-items: stretch;
-      background: linear-gradient(180deg, rgba(12, 8, 30, 0.62), rgba(10, 8, 22, 0.82));
-      border: 1px solid rgba(89,243,255,0.16);
-      border-radius: calc(var(--radius) + 6px);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-      padding: 30px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--yellow);
-      margin-bottom: 18px;
-    }
-
-    .eyebrow::before {
-      content: '';
-      width: 42px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--yellow));
-    }
-
-    .title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(2.6rem, 7vw, 5.8rem);
-      line-height: 0.95;
-      letter-spacing: 0.04em;
-      margin-bottom: 18px;
+    h1{
+      font-family:'Orbitron',sans-serif;
+      font-size:clamp(3rem,10vw,7rem);
+      line-height:.95;
+      letter-spacing:.04em;
+      margin-bottom:.8rem;
+      text-transform:uppercase;
+      color:#eafcff;
       text-shadow:
-        0 0 12px rgba(89,243,255,0.35),
-        0 0 38px rgba(89,243,255,0.18);
+        0 2px 0 rgba(0,0,0,.15),
+        0 0 16px rgba(89,225,255,.35),
+        0 0 30px rgba(180,76,255,.18),
+        0 18px 35px rgba(0,0,0,.25);
     }
 
-    .title span {
-      color: var(--pink);
-      text-shadow:
-        0 0 12px rgba(255,79,154,0.45),
-        0 0 36px rgba(255,79,154,0.18);
+    h1 .kay{
+      background:linear-gradient(180deg, #dffcff 0%, var(--cyan) 58%, #118fb6 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
     }
 
-    .lead {
-      max-width: 620px;
-      font-size: 1.05rem;
-      line-height: 1.75;
-      color: var(--muted);
-      margin-bottom: 28px;
+    h1 .site{
+      background:linear-gradient(180deg, #efe1ff 0%, #cf7eff 54%, var(--violet) 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
     }
 
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
+    .subtitle{
+      font-family:'Orbitron',sans-serif;
+      font-size:clamp(1rem,2.1vw,1.6rem);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--gold);
+      margin-bottom:1.25rem;
+      text-shadow:0 2px 12px rgba(0,0,0,.3);
     }
 
-    .button.primary {
-      background: linear-gradient(135deg, rgba(89,243,255,0.18), rgba(255,79,154,0.12));
-      border-color: rgba(89,243,255,0.4);
-      box-shadow: 0 10px 30px rgba(89,243,255,0.12);
+    .subtitle::before,
+    .subtitle::after{
+      content:'';
+      display:inline-block;
+      width:70px;
+      max-width:16vw;
+      height:2px;
+      vertical-align:middle;
+      margin:0 .9rem;
+      background:linear-gradient(90deg, transparent, rgba(89,225,255,.95), rgba(180,76,255,.95), transparent);
+      border-radius:999px;
     }
 
-    .hero-meta {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
+    .intro{
+      width:min(760px,100%);
+      margin:0 auto 2rem;
+      background:var(--panel);
+      border:1px solid var(--panel-border);
+      backdrop-filter:blur(10px);
+      border-radius:24px;
+      padding:1.15rem 1.15rem 1.2rem;
+      box-shadow:0 18px 40px var(--shadow);
     }
 
-    .chip {
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.03);
-      border-radius: 999px;
-      padding: 9px 14px;
-      font-size: 0.84rem;
-      color: rgba(255,255,255,0.78);
+    .intro p{
+      font-size:clamp(1rem,1.7vw,1.08rem);
+      line-height:1.8;
+      color:var(--soft);
     }
 
-    .status-card {
-      align-self: center;
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:1.15rem;
+      margin-top:1.3rem;
     }
 
-    .status-card h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1rem;
-      letter-spacing: 0.16em;
-      margin-bottom: 18px;
-      color: var(--blue);
+    .card{
+      background:rgba(18,13,18,.42);
+      border:1px solid rgba(248,222,139,.24);
+      backdrop-filter:blur(8px);
+      border-radius:20px;
+      padding:1.25rem 1.1rem;
+      box-shadow:0 14px 28px rgba(0,0,0,.22);
     }
 
-    .status-list {
-      display: grid;
-      gap: 12px;
-      list-style: none;
-      margin-bottom: 18px;
+    .icon{
+      font-size:1.9rem;
+      margin-bottom:.7rem;
+      display:block;
     }
 
-    .status-list li {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 12px 14px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 16px;
-      font-size: 0.95rem;
+    .card h3{
+      font-family:'Orbitron',sans-serif;
+      font-size:1rem;
+      letter-spacing:.08em;
+      margin-bottom:.55rem;
+      color:var(--text);
     }
 
-    .status-list strong {
-      font-weight: 600;
-      color: rgba(255,255,255,0.92);
+    .card p{
+      color:var(--soft);
+      line-height:1.7;
+      font-size:.97rem;
     }
 
-    .status-ok,
-    .status-build,
-    .status-next {
-      font-size: 0.76rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 6px 10px;
-      border-radius: 999px;
+    footer{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:1;
+      text-align:center;
+      padding:1rem;
+      color:rgba(255,249,234,.82);
+      font-size:.8rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      text-shadow:0 2px 10px rgba(0,0,0,.32);
     }
 
-    .status-ok {
-      color: var(--blue);
-      background: rgba(89,243,255,0.10);
-      border: 1px solid rgba(89,243,255,0.18);
-    }
+    footer span{color:var(--gold)}
 
-    .status-build {
-      color: var(--pink);
-      background: rgba(255,79,154,0.10);
-      border: 1px solid rgba(255,79,154,0.18);
-    }
-
-    .status-next {
-      color: var(--yellow);
-      background: rgba(255,216,77,0.10);
-      border: 1px solid rgba(255,216,77,0.18);
-    }
-
-    .status-note {
-      font-size: 0.92rem;
-      line-height: 1.7;
-      color: var(--muted);
-    }
-
-    .section {
-      padding: 38px 0;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 22px;
-    }
-
-    .section h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(1.35rem, 2vw, 1.9rem);
-      letter-spacing: 0.08em;
-    }
-
-    .section p.section-copy {
-      max-width: 700px;
-      color: var(--muted);
-      line-height: 1.75;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow);
-      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(89,243,255,0.28);
-      box-shadow: 0 20px 55px rgba(0,0,0,0.42);
-    }
-
-    .card-icon {
-      width: 52px;
-      height: 52px;
-      display: grid;
-      place-items: center;
-      border-radius: 16px;
-      margin-bottom: 16px;
-      font-size: 1.35rem;
-      background: linear-gradient(135deg, rgba(89,243,255,0.16), rgba(255,79,154,0.12));
-      border: 1px solid rgba(89,243,255,0.14);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
-    }
-
-    .card h3 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.96rem;
-      letter-spacing: 0.14em;
-      margin-bottom: 10px;
-      color: var(--text);
-    }
-
-    .card p {
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 0.96rem;
-    }
-
-    .contact-box {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      background: linear-gradient(180deg, rgba(18, 10, 42, 0.88), rgba(12, 9, 26, 0.94));
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: calc(var(--radius) + 4px);
-      padding: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .contact-box h3 {
-      font-family: 'Orbitron', sans-serif;
-      margin-bottom: 8px;
-      letter-spacing: 0.08em;
-    }
-
-    .contact-box p {
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    footer {
-      padding: 38px 0 14px;
-      color: rgba(255,255,255,0.45);
-      font-size: 0.88rem;
-    }
-
-    .footer-line {
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding-top: 18px;
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .footer-line span {
-      color: var(--pink);
-    }
-
-    @media (max-width: 960px) {
-      .hero-panel,
-      .cards,
-      .contact-box {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-panel {
-        padding: 24px;
-      }
-
-      .contact-box {
-        display: grid;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .page { width: min(var(--max), calc(100% - 20px)); }
-
-      .nav {
-        padding: 14px;
-        border-radius: 24px;
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .nav-links {
-        width: 100%;
-        justify-content: flex-start;
-      }
-
-      .hero {
-        min-height: auto;
-        padding-top: 12px;
-      }
-
-      .title {
-        font-size: clamp(2.1rem, 12vw, 3.6rem);
-      }
-
-      .lead {
-        font-size: 0.98rem;
-      }
-
-      .section-head,
-      .footer-line,
-      .contact-box {
-        display: block;
-      }
-
-      .section-head > * + *,
-      .contact-box > * + * {
-        margin-top: 12px;
-      }
-
-      .sun {
-        width: min(62vw, 320px);
-        bottom: 24vh;
-      }
-
-      .mountains {
-        bottom: 24vh;
-      }
-
-      .grid-floor {
-        height: 26vh;
-      }
+    @media (max-width: 860px){
+      body{background-attachment:scroll}
+      .cards{grid-template-columns:1fr}
+      .subtitle::before,
+      .subtitle::after{width:36px;margin:0 .5rem}
+      .page{padding:1rem}
     }
   </style>
 </head>
 <body>
-  <div class="stars" id="stars"></div>
-  <div class="aurora"></div>
-  <div class="sun"></div>
+  <div class="glow"></div>
 
-  <div class="mountains">
-    <svg viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <polygon points="0,220 150,130 280,220" fill="#140a27"/>
-      <polygon points="180,220 390,70 590,220" fill="#0f081f"/>
-      <polygon points="470,220 700,125 930,220" fill="#140a27"/>
-      <polygon points="760,220 980,55 1190,220" fill="#0f081f"/>
-      <polygon points="1080,220 1265,120 1440,220" fill="#140a27"/>
-    </svg>
-  </div>
+  <main class="page">
+    <section class="hero">
+      <div class="badge">Retro trifft Natur</div>
+      <h1><span class="kay">KAY</span><span class="site">SSITE</span></h1>
+      <div class="subtitle">Ein neuer Morgen beginnt</div>
 
-  <div class="grid-floor"></div>
-
-  <div class="page">
-    <nav class="nav">
-      <div class="brand">KAYSSITE</div>
-      <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#status">Status</a>
-        <a href="#contact">Kontakt</a>
+      <div class="intro">
+        <p>
+          Etwas Neues entsteht. Mit Licht, Natur, Aufbruch und einem Hauch Retro.
+          Diese Seite soll warm, offen und hoffnungsvoll wirken – wie ein neuer Tag,
+          der gerade erst beginnt.
+        </p>
       </div>
-    </nav>
 
-    <main>
-      <section class="hero">
-        <div class="hero-panel">
-          <div>
-            <div class="eyebrow">Neue Version in Arbeit</div>
-            <h1 class="title">KAY<span>S</span>SITE</h1>
-            <p class="lead">
-              Eine Landingpage im Retro-Futurismus-Stil – aber klarer, moderner und ruhiger gestaltet.
-              So wirkt die Seite weniger überladen und ist trotzdem weiterhin auffällig.
-            </p>
+      <div class="cards">
+        <article class="card">
+          <span class="icon">🌅</span>
+          <h3>Sunrise</h3>
+          <p>Ein heller Anfang statt dunkler Stimmung – mit Sonne, Wärme und positiver Energie.</p>
+        </article>
 
-            <div class="hero-actions">
-              <a class="button primary" href="#features">Design ansehen</a>
-              <a class="button" href="#contact">Platzhalter-Kontakt</a>
-            </div>
+        <article class="card">
+          <span class="icon">🌿</span>
+          <h3>Nature</h3>
+          <p>Echtes Grün und Landschaft geben der Seite Ruhe, Natürlichkeit und Leben.</p>
+        </article>
 
-            <div class="hero-meta">
-              <div class="chip">Synthwave × modernisiert</div>
-              <div class="chip">Responsive Layout</div>
-              <div class="chip">Bereit für GitHub Pages</div>
-            </div>
-          </div>
-
-          <aside class="status-card" id="status">
-            <h2>PROJECT STATUS</h2>
-            <ul class="status-list">
-              <li><strong>Design-System</strong><span class="status-ok">online</span></li>
-              <li><strong>Content-Struktur</strong><span class="status-build">building</span></li>
-              <li><strong>Nächster Schritt</strong><span class="status-next">portfolio</span></li>
-            </ul>
-            <p class="status-note">
-              Aktuell ist dies eine elegante „Coming Soon“-Version. Später kannst du hier leicht
-              echte Inhalte ergänzen: Projekte, About-Bereich, Social Links oder ein Kontaktformular.
-            </p>
-          </aside>
-        </div>
-      </section>
-
-      <section class="section" id="features">
-        <div class="section-head">
-          <div>
-            <h2>WAS SCHON DRIN IST</h2>
-          </div>
-          <p class="section-copy">
-            Diese Version behält deine Grundidee bei, macht das Erscheinungsbild aber hochwertiger:
-            bessere Typografie, klarere Bereiche, stimmigere Abstände und ein professionellerer erster Eindruck.
-          </p>
-        </div>
-
-        <div class="cards">
-          <article class="card">
-            <div class="card-icon">✨</div>
-            <h3>KLARER HERO-BEREICH</h3>
-            <p>
-              Die Überschrift steht jetzt im Fokus. Der erste Blick landet direkt auf dem Namen und einer kurzen,
-              verständlichen Botschaft.
-            </p>
-          </article>
-
-          <article class="card">
-            <div class="card-icon">🧩</div>
-            <h3>MEHR STRUKTUR</h3>
-            <p>
-              Statt nur drei Karten wirkt die Seite jetzt wie eine richtige Landingpage mit Navigation,
-              Statusfeld und klar getrennten Abschnitten.
-            </p>
-          </article>
-
-          <article class="card">
-            <div class="card-icon">📱</div>
-            <h3>BESSER AUF HANDY</h3>
-            <p>
-              Das Layout bricht sauber um und bleibt auch auf kleineren Displays deutlich lesbarer als die Ausgangsversion.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section" id="contact">
-        <div class="contact-box">
-          <div>
-            <h3>BEREIT FÜR DEN NÄCHSTEN SCHRITT?</h3>
-            <p>
-              Hier könntest du später Social-Media-Links, GitHub, ein Portfolio oder eine kurze Vorstellung einbauen.
-              Für den Moment funktioniert dieser Bereich als sauberer Platzhalter.
-            </p>
-          </div>
-          <a class="button primary" href="mailto:deinname@example.com">Kontakt-Platzhalter</a>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="footer-line">
-        <div>&copy; 2026 <span>KAYSSITE</span></div>
-        <div>Version 2.0 · cleaner neon landing page</div>
+        <article class="card">
+          <span class="icon">✨</span>
+          <h3>Coming Soon</h3>
+          <p>Hier wächst Schritt für Schritt etwas Eigenes. Mehr Inhalte folgen bald.</p>
+        </article>
       </div>
-    </footer>
-  </div>
+    </section>
+  </main>
 
-  <script>
-    const starsEl = document.getElementById('stars');
-    const starCount = window.innerWidth < 720 ? 55 : 95;
-
-    for (let i = 0; i < starCount; i++) {
-      const star = document.createElement('div');
-      const size = Math.random() * 2.2 + 0.6;
-      star.className = 'star';
-      star.style.cssText = `
-        left:${(Math.random() * 100).toFixed(2)}%;
-        top:${(Math.random() * 68).toFixed(2)}%;
-        width:${size}px;
-        height:${size}px;
-        --d:${(Math.random() * 4 + 2).toFixed(2)}s;
-        animation-delay:${(Math.random() * 4).toFixed(2)}s;
-      `;
-      starsEl.appendChild(star);
-    }
-  </script>
+  <footer>© 2026 <span>KAYSSITE</span> · Neues voraus</footer>
 </body>
 </html>
