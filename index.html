@@ -13,7 +13,7 @@
       --panel:rgba(255,248,235,.70);
       --panel-strong:rgba(255,250,240,.82);
       --border:rgba(255,255,255,.55);
-      --gold:#d6b35e;
+      --gold:#e6d19a;
       --cyan:#6fdcff;
       --violet:#9e72ff;
       --shadow:rgba(0,0,0,.14);
@@ -46,7 +46,7 @@
       position:absolute;
       inset:0;
       background:
-        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02) 40%, rgba(255,232,176,.10) 100%),
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02) 40%, rgba(255,232,176,.08) 100%),
         repeating-linear-gradient(
           0deg,
           rgba(255,255,255,.03) 0px,
@@ -117,33 +117,84 @@
       position:relative;
       z-index:2;
       width:min(980px,100%);
-      padding:3.5rem 0 3rem;
+      padding:3rem 0 3rem;
       text-align:center;
+    }
+
+    .logo-wrap{
+      margin:0 auto 11rem;
+      width:min(920px, 100%);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:.5rem;
+      user-select:none;
     }
 
     .logo{
       font-family:'Orbitron',sans-serif;
-      font-size:clamp(3.2rem,10vw,7.4rem);
-      line-height:.92;
+      font-size:clamp(3.2rem,10vw,7rem);
+      line-height:.9;
       text-transform:uppercase;
-      letter-spacing:.04em;
-      margin:0 auto 15rem;
-      filter:drop-shadow(0 6px 20px rgba(0,0,0,.22));
-      user-select:none;
+      letter-spacing:.03em;
+      filter:
+        drop-shadow(0 2px 0 rgba(255,255,255,.65))
+        drop-shadow(0 6px 14px rgba(0,0,0,.24));
+      transform:skewX(-8deg);
+    }
+
+    .logo .kay,
+    .logo .site{
+      display:inline-block;
+      -webkit-text-stroke: 1px rgba(53,42,58,.35);
     }
 
     .logo .kay{
-      background:linear-gradient(180deg, #ebffff 0%, #b4f4ff 26%, var(--cyan) 62%, #279dc6 100%);
+      background:linear-gradient(180deg, #f4ffff 0%, #c9fbff 22%, #81e9ff 55%, #2499c2 100%);
       -webkit-background-clip:text;
       background-clip:text;
       color:transparent;
     }
 
     .logo .site{
-      background:linear-gradient(180deg, #f2e8ff 0%, #ceb0ff 32%, var(--violet) 68%, #7147dd 100%);
+      background:linear-gradient(180deg, #f6ecff 0%, #d9c0ff 22%, #ab82ff 58%, #7444df 100%);
       -webkit-background-clip:text;
       background-clip:text;
       color:transparent;
+    }
+
+    .tagline-row{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:1rem;
+      width:min(720px,100%);
+    }
+
+    .tagline-line{
+      flex:1;
+      height:4px;
+      border-radius:999px;
+      background:
+        linear-gradient(90deg,
+          transparent 0%,
+          rgba(116,68,223,.95) 22%,
+          rgba(111,220,255,.95) 78%,
+          transparent 100%);
+      box-shadow:0 0 10px rgba(116,68,223,.22);
+      opacity:.95;
+    }
+
+    .tagline{
+      font-family:'Orbitron',sans-serif;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:clamp(1rem,2.1vw,1.9rem);
+      color:var(--gold);
+      text-shadow:
+        0 1px 0 rgba(255,255,255,.38),
+        0 3px 10px rgba(0,0,0,.18);
+      white-space:nowrap;
     }
 
     .panel{
@@ -335,14 +386,21 @@
     }
 
     @media (max-width: 860px){
-      .logo{margin-bottom:10rem}
+      .logo-wrap{margin-bottom:8rem}
       .cards,.section-inner{grid-template-columns:1fr}
+      .tagline-row{gap:.6rem}
+      .tagline-line{height:3px}
     }
 
     @media (max-width: 520px){
       .content{padding-top:2.5rem}
-      .logo{margin-bottom:7rem}
+      .logo-wrap{margin-bottom:6rem}
       .panel,.glass,.card{border-radius:20px}
+      .tagline-row{gap:.45rem}
+      .tagline{
+        font-size:.9rem;
+        white-space:normal;
+      }
     }
   </style>
 </head>
@@ -353,14 +411,20 @@
     <div class="floating" aria-hidden="true" id="floating"></div>
 
     <div class="content">
-      <div class="logo"><span class="kay">KAY</span><span class="site">SSITE</span></div>
+      <div class="logo-wrap">
+        <div class="logo"><span class="kay">KAY</span><span class="site">SSITE</span></div>
+        <div class="tagline-row">
+          <span class="tagline-line"></span>
+          <div class="tagline">Ein neuer Morgen beginnt</div>
+          <span class="tagline-line"></span>
+        </div>
+      </div>
 
       <div class="panel">
-        <h1>Ein neuer Morgen beginnt</h1>
+        <h1>Das Bild bleibt bewusst unverändert</h1>
         <p>
-          Das Bild bleibt bewusst unverändert. Alles, was dazukommt, liegt nur als klare,
-          helle Ebene darüber: mit sanfter Bewegung, etwas Retro-Atmosphäre und einer
-          offenen, positiven Stimmung.
+          Alles, was dazukommt, liegt nur als klare, helle Ebene darüber: mit sanfter
+          Bewegung, etwas Retro-Atmosphäre und einer offenen, positiven Stimmung.
         </p>
 
         <div class="cards">
@@ -392,26 +456,26 @@
   <section class="section" id="more">
     <div class="section-inner">
       <div class="glass">
-        <h2>Das Foto steht im Mittelpunkt</h2>
+        <h2>Mehr Retro im Schriftzug</h2>
         <p>
-          Genau so ist es stimmiger: kein bearbeitetes Hintergrundbild, keine doppelten Logos,
-          keine künstliche Verdunklung. Die Seite nutzt das Originalbild als starke Grundlage
-          und ergänzt nur eine leichte, lebendige Oberfläche darüber.
+          Der KAYSSITE-Schriftzug ist jetzt wieder stärker in dieser 80er-Richtung aufgebaut:
+          mit Verlauf, leichter Schräglage, kräftigerem Glanz und den Linien links und rechts
+          des Untertitels – so wie in deinem Beispielbild.
         </p>
       </div>
 
       <div class="mini-list">
         <div class="mini">
-          <strong>Bild bleibt original</strong>
-          Keine Veränderung am Foto selbst.
+          <strong>Coolerer Logo-Look</strong>
+          Mehr Nähe zu deinem Beispielbild.
         </div>
         <div class="mini">
-          <strong>Bewegung bleibt</strong>
-          Licht, Partikel und sanfte Scroll-Dynamik bleiben erhalten.
+          <strong>Unterstriche wieder da</strong>
+          Der Untertitel wird von Neon-Linien eingerahmt.
         </div>
         <div class="mini">
-          <strong>Sauberer Look</strong>
-          Keine Doppelungen und deutlich mehr Ruhe im Kopfbereich.
+          <strong>Foto bleibt original</strong>
+          Das Hintergrundbild wird weiterhin nicht verändert.
         </div>
       </div>
     </div>
