@@ -8,15 +8,16 @@
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap');
 
     :root{
-      --bg:#f6edd7;
-      --text:#342d25;
-      --soft:#5f5448;
-      --panel:rgba(255,248,234,.72);
-      --panel-border:rgba(255,255,255,.62);
-      --gold:#d8b25a;
-      --shadow:rgba(0,0,0,.12);
-      --cyan:#73dfff;
-      --violet:#a06dff;
+      --text:#2f2a24;
+      --soft:#64584b;
+      --panel:rgba(255,248,235,.70);
+      --panel-strong:rgba(255,250,240,.82);
+      --border:rgba(255,255,255,.55);
+      --gold:#d6b35e;
+      --cyan:#6fdcff;
+      --violet:#9e72ff;
+      --shadow:rgba(0,0,0,.14);
+      --bg:#f7efdd;
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
@@ -34,11 +35,10 @@
       display:flex;
       align-items:flex-end;
       justify-content:center;
-      padding:clamp(1rem,2vw,2rem);
+      padding:1.2rem;
       overflow:hidden;
-      background:
-        linear-gradient(to bottom, rgba(255,251,240,.04), rgba(255,241,210,.12)),
-        url('retro-landscape.png') center 28% / cover no-repeat;
+      background:url('original-landscape.png') center center / cover no-repeat;
+      isolation:isolate;
     }
 
     .hero::before{
@@ -46,131 +46,123 @@
       position:absolute;
       inset:0;
       background:
-        radial-gradient(circle at 58% 20%, rgba(255,250,226,.30), transparent 18%),
-        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03) 45%, rgba(255,219,132,.08) 100%);
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02) 40%, rgba(255,232,176,.10) 100%),
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,.03) 0px,
+          rgba(255,255,255,.03) 1px,
+          transparent 1px,
+          transparent 4px
+        );
       pointer-events:none;
+      z-index:-1;
     }
 
-    .hero::after{
-      content:'';
+    .sun-glow{
       position:absolute;
-      inset:0;
-      background:repeating-linear-gradient(
-        0deg,
-        rgba(255,255,255,.03) 0px,
-        rgba(255,255,255,.03) 1px,
-        transparent 1px,
-        transparent 4px
-      );
-      opacity:.25;
-      pointer-events:none;
-    }
-
-    .sun-flare{
-      position:absolute;
-      top:7%;
+      top:0;
       left:58%;
-      width:min(42vw,500px);
+      width:min(40vw,480px);
       aspect-ratio:1;
       transform:translateX(-50%);
       pointer-events:none;
       background:
-        radial-gradient(circle, rgba(255,255,255,.95) 0 12%, rgba(255,241,175,.70) 18%, rgba(255,220,120,.18) 34%, transparent 62%);
-      filter:blur(2px);
-      animation:pulse 7s ease-in-out infinite;
+        radial-gradient(circle, rgba(255,255,255,.50) 0 12%, rgba(255,244,190,.26) 18%, rgba(255,220,120,.08) 34%, transparent 64%);
+      filter:blur(6px);
       mix-blend-mode:screen;
+      animation:pulse 8s ease-in-out infinite;
     }
 
     .rays{
       position:absolute;
       inset:-18%;
-      background:
-        conic-gradient(from 0deg at 58% 20%,
-          rgba(255,255,255,0) 0deg 18deg,
-          rgba(255,244,199,.30) 24deg,
-          rgba(255,255,255,0) 32deg,
-          rgba(255,255,255,0) 56deg,
-          rgba(255,243,180,.22) 62deg,
-          rgba(255,255,255,0) 71deg,
-          rgba(255,255,255,0) 100deg,
-          rgba(255,243,180,.16) 108deg,
-          rgba(255,255,255,0) 117deg,
-          rgba(255,255,255,0) 360deg);
-      opacity:.5;
-      transform-origin:58% 20%;
-      animation:slowRotate 30s linear infinite;
       pointer-events:none;
-      mask-image:radial-gradient(circle at 58% 20%, black 0 18%, transparent 58%);
+      background:
+        conic-gradient(from 0deg at 58% 12%,
+          rgba(255,255,255,0) 0deg 18deg,
+          rgba(255,244,210,.20) 24deg,
+          rgba(255,255,255,0) 31deg,
+          rgba(255,255,255,0) 54deg,
+          rgba(255,236,176,.14) 60deg,
+          rgba(255,255,255,0) 69deg,
+          rgba(255,255,255,0) 100deg,
+          rgba(255,241,190,.10) 106deg,
+          rgba(255,255,255,0) 114deg,
+          rgba(255,255,255,0) 360deg);
+      mask-image:radial-gradient(circle at 58% 12%, black 0 17%, transparent 58%);
+      opacity:.65;
+      transform-origin:58% 12%;
+      animation:rotateRays 32s linear infinite;
     }
 
     .floating{
       position:absolute;
       inset:0;
-      pointer-events:none;
       overflow:hidden;
+      pointer-events:none;
     }
 
     .floating span{
       position:absolute;
-      width:8px;
-      height:8px;
+      width:7px;
+      height:7px;
       border-radius:50%;
-      background:rgba(255,247,220,.75);
-      box-shadow:0 0 14px rgba(255,236,176,.7);
+      background:rgba(255,248,225,.75);
+      box-shadow:0 0 14px rgba(255,237,180,.7);
       animation:drift linear infinite;
       opacity:.55;
     }
 
     .content{
       position:relative;
-      z-index:1;
+      z-index:2;
       width:min(980px,100%);
+      padding:8.5rem 0 3rem;
       text-align:center;
-      padding-top:10rem;
-      padding-bottom:3.5rem;
     }
 
     .badge{
       display:inline-block;
-      margin-bottom:18rem;
-      padding:.6rem 1rem;
+      margin-bottom:13rem;
+      padding:.55rem 1rem;
       border-radius:999px;
-      background:rgba(255,248,233,.56);
-      border:1px solid rgba(255,255,255,.64);
+      background:rgba(255,248,236,.58);
+      border:1px solid rgba(255,255,255,.65);
       backdrop-filter:blur(8px);
-      color:#876b22;
-      font-size:.82rem;
+      color:#8d7127;
+      font-size:.8rem;
       font-weight:700;
       letter-spacing:.18em;
       text-transform:uppercase;
-      box-shadow:0 8px 20px rgba(0,0,0,.06);
+      box-shadow:0 8px 18px rgba(0,0,0,.06);
     }
 
     .panel{
-      width:min(880px,100%);
+      width:min(900px,100%);
       margin:0 auto;
       background:var(--panel);
-      border:1px solid var(--panel-border);
+      border:1px solid var(--border);
       border-radius:30px;
       backdrop-filter:blur(10px);
       box-shadow:0 20px 40px var(--shadow);
       padding:clamp(1.25rem,3vw,2rem);
     }
 
-    .panel h2{
+    .panel h1{
       font-family:'Orbitron',sans-serif;
-      font-size:clamp(1.2rem,2.4vw,1.9rem);
+      font-size:clamp(1.25rem,2.8vw,2.2rem);
+      line-height:1.15;
+      letter-spacing:.04em;
+      color:#4b4035;
       margin-bottom:.9rem;
-      color:#4a3d32;
-      letter-spacing:.05em;
     }
 
     .panel p{
-      font-size:clamp(1rem,1.8vw,1.15rem);
-      line-height:1.85;
-      color:var(--soft);
       max-width:760px;
       margin:0 auto;
+      font-size:clamp(1rem,1.8vw,1.12rem);
+      line-height:1.85;
+      color:var(--soft);
     }
 
     .cards{
@@ -181,10 +173,10 @@
     }
 
     .card{
-      background:rgba(255,250,241,.58);
-      border:1px solid rgba(255,255,255,.62);
+      background:rgba(255,251,242,.62);
+      border:1px solid rgba(255,255,255,.66);
       border-radius:22px;
-      padding:1.2rem 1.05rem;
+      padding:1.15rem 1rem;
       box-shadow:0 12px 24px rgba(0,0,0,.07);
       transition:transform .25s ease, box-shadow .25s ease;
     }
@@ -194,13 +186,19 @@
       box-shadow:0 18px 30px rgba(0,0,0,.10);
     }
 
-    .icon{display:block;font-size:1.8rem;margin-bottom:.65rem}
+    .icon{
+      display:block;
+      font-size:1.8rem;
+      margin-bottom:.6rem;
+    }
+
     .card h3{
       font-family:'Orbitron',sans-serif;
       font-size:1rem;
       margin-bottom:.55rem;
       color:#4c4035;
     }
+
     .card p{
       font-size:.98rem;
       line-height:1.7;
@@ -208,47 +206,59 @@
     }
 
     .scroll-indicator{
-      margin-top:1.35rem;
+      margin-top:1.3rem;
       display:inline-flex;
       flex-direction:column;
       align-items:center;
       gap:.45rem;
-      color:#fff6dc;
+      color:#fff6db;
       text-decoration:none;
-      font-size:.82rem;
-      letter-spacing:.18em;
       text-transform:uppercase;
-      text-shadow:0 2px 10px rgba(0,0,0,.2);
+      letter-spacing:.18em;
+      font-size:.8rem;
+      text-shadow:0 2px 10px rgba(0,0,0,.18);
     }
 
     .mouse{
-      width:34px;height:56px;border:2px solid rgba(255,246,220,.9);border-radius:999px;position:relative;
-      background:rgba(255,255,255,.08);backdrop-filter:blur(6px)
+      width:34px;
+      height:56px;
+      border-radius:999px;
+      border:2px solid rgba(255,246,220,.92);
+      background:rgba(255,255,255,.08);
+      backdrop-filter:blur(6px);
+      position:relative;
     }
+
     .mouse::after{
       content:'';
-      position:absolute;left:50%;top:10px;transform:translateX(-50%);
-      width:6px;height:11px;border-radius:999px;background:#fff6dc;
+      position:absolute;
+      left:50%;
+      top:10px;
+      transform:translateX(-50%);
+      width:6px;
+      height:11px;
+      border-radius:999px;
+      background:#fff6db;
       animation:scrollDot 1.8s infinite;
     }
 
     .section{
       padding:5rem 1.2rem 6rem;
-      background:linear-gradient(180deg, #fff8e9 0%, #f6edd7 100%);
+      background:linear-gradient(180deg, #fff8ea 0%, #f7efdd 100%);
     }
 
     .section-inner{
       width:min(980px,100%);
       margin:0 auto;
       display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:1.3rem;
+      grid-template-columns:1.05fr .95fr;
+      gap:1.2rem;
       align-items:start;
     }
 
     .glass{
-      background:rgba(255,255,255,.68);
-      border:1px solid rgba(255,255,255,.85);
+      background:var(--panel-strong);
+      border:1px solid rgba(255,255,255,.75);
       border-radius:26px;
       padding:1.5rem;
       box-shadow:0 16px 30px rgba(0,0,0,.06);
@@ -275,7 +285,7 @@
     .mini{
       padding:1rem;
       border-radius:18px;
-      background:rgba(248,241,223,.85);
+      background:rgba(248,241,223,.88);
       border:1px solid rgba(223,208,171,.5);
     }
 
@@ -293,14 +303,14 @@
       font-size:.82rem;
       letter-spacing:.12em;
       text-transform:uppercase;
-      background:#f6edd7;
+      background:#f7efdd;
     }
 
     @keyframes pulse{
-      0%,100%{transform:translateX(-50%) scale(1);opacity:.85}
-      50%{transform:translateX(-50%) scale(1.06);opacity:1}
+      0%,100%{transform:translateX(-50%) scale(1);opacity:.72}
+      50%{transform:translateX(-50%) scale(1.05);opacity:1}
     }
-    @keyframes slowRotate{
+    @keyframes rotateRays{
       from{transform:rotate(0deg)}
       to{transform:rotate(360deg)}
     }
@@ -316,22 +326,20 @@
     }
 
     @media (max-width: 860px){
-      .hero{background-position:center center}
-      .badge{margin-bottom:13rem}
+      .badge{margin-bottom:10rem}
       .cards,.section-inner{grid-template-columns:1fr}
     }
 
     @media (max-width: 520px){
-      .hero{min-height:100svh}
-      .badge{margin-bottom:10rem;font-size:.72rem}
-      .panel{border-radius:22px}
-      .card,.glass{border-radius:20px}
+      .content{padding-top:6.5rem}
+      .badge{margin-bottom:7.5rem;font-size:.72rem}
+      .panel,.glass,.card{border-radius:20px}
     }
   </style>
 </head>
 <body>
   <section class="hero" id="top">
-    <div class="sun-flare"></div>
+    <div class="sun-glow"></div>
     <div class="rays"></div>
     <div class="floating" aria-hidden="true" id="floating"></div>
 
@@ -339,28 +347,28 @@
       <div class="badge">Retro trifft Natur</div>
 
       <div class="panel">
-        <h2>Ein neuer Morgen beginnt</h2>
+        <h1>Ein neuer Morgen beginnt</h1>
         <p>
-          Etwas Neues entsteht. Mit Licht, Natur, Aufbruch und einem Hauch Retro.
-          Diese Seite soll warm, klar und lebendig wirken – wie ein frischer Morgen
-          voller neuer Möglichkeiten.
+          Das Bild bleibt bewusst unverändert. Alles, was dazukommt, liegt nur als klare,
+          helle Ebene darüber: mit sanfter Bewegung, etwas Retro-Atmosphäre und einer
+          offenen, positiven Stimmung.
         </p>
 
         <div class="cards">
           <article class="card">
             <span class="icon">🌅</span>
-            <h3>Sunrise</h3>
-            <p>Mehr Helligkeit, mehr Wärme und ein freundlicher erster Eindruck.</p>
-          </article>
-          <article class="card">
-            <span class="icon">🌿</span>
-            <h3>Nature</h3>
-            <p>Echte Landschaft, echte Ruhe und ein natürlicher, offener Charakter.</p>
+            <h3>Originalbild</h3>
+            <p>Die Landschaft bleibt unverändert und ist die eigentliche Bühne der Startseite.</p>
           </article>
           <article class="card">
             <span class="icon">✨</span>
-            <h3>In Bewegung</h3>
-            <p>Sanfte Effekte machen die Seite lebendiger, ohne sie zu überladen.</p>
+            <h3>Dynamik</h3>
+            <p>Leichte Licht- und Partikeleffekte bringen Bewegung hinein, ohne das Foto zu verändern.</p>
+          </article>
+          <article class="card">
+            <span class="icon">🌿</span>
+            <h3>Stimmung</h3>
+            <p>Warm, freundlich und hoffnungsvoll – eher Aufbruch als dunkler Retro-Look.</p>
           </article>
         </div>
       </div>
@@ -375,26 +383,26 @@
   <section class="section" id="more">
     <div class="section-inner">
       <div class="glass">
-        <h2>Weniger doppelt, mehr Wirkung</h2>
+        <h2>Das Foto steht im Mittelpunkt</h2>
         <p>
-          Da das Bild selbst schon dein starkes Logo enthält, bleibt der HTML-Inhalt jetzt bewusst
-          ruhiger. So wirkt der Kopfbereich sauberer, das Foto bekommt mehr Raum und die Seite
-          fühlt sich eher wie eine echte Startseite an.
+          Genau so ist es stimmiger: kein bearbeitetes Hintergrundbild, keine doppelten Logos,
+          keine künstliche Verdunklung. Die Seite nutzt das Originalbild als starke Grundlage
+          und ergänzt nur eine leichte, lebendige Oberfläche darüber.
         </p>
       </div>
 
       <div class="mini-list">
         <div class="mini">
-          <strong>Kein doppeltes Logo</strong>
-          Das große HTML-„KAYSSITE“ wurde entfernt.
+          <strong>Bild bleibt original</strong>
+          Keine Veränderung am Foto selbst.
         </div>
         <div class="mini">
-          <strong>Scrollen bleibt aktiv</strong>
-          Es gibt weiter einen zweiten Bereich unter dem Hero.
+          <strong>Bewegung bleibt</strong>
+          Licht, Partikel und sanfte Scroll-Dynamik bleiben erhalten.
         </div>
         <div class="mini">
-          <strong>Dynamik bleibt erhalten</strong>
-          Licht, Partikel und sanfte Bewegung sind weiter da.
+          <strong>Sauberer Look</strong>
+          Keine Doppelungen und deutlich mehr Ruhe im Kopfbereich.
         </div>
       </div>
     </div>
@@ -418,18 +426,18 @@
 
     const hero = document.querySelector('.hero');
     const rays = document.querySelector('.rays');
-    const flare = document.querySelector('.sun-flare');
+    const glow = document.querySelector('.sun-glow');
 
     window.addEventListener('mousemove', (e) => {
       const x = (e.clientX / window.innerWidth - 0.5) * 10;
       const y = (e.clientY / window.innerHeight - 0.5) * 8;
-      rays.style.transform = `translate(${x * 0.6}px, ${y * 0.4}px) rotate(${x * 0.2}deg)`;
-      flare.style.transform = `translateX(-50%) translate(${x * 0.8}px, ${y * 0.5}px)`;
+      rays.style.transform = `translate(${x * 0.45}px, ${y * 0.3}px) rotate(${x * 0.15}deg)`;
+      glow.style.transform = `translateX(-50%) translate(${x * 0.55}px, ${y * 0.35}px)`;
     });
 
     window.addEventListener('scroll', () => {
       const sc = window.scrollY;
-      hero.style.backgroundPosition = `center calc(28% + ${sc * 0.06}px)`;
+      hero.style.backgroundPosition = `center calc(50% + ${sc * 0.06}px)`;
     }, { passive: true });
   </script>
 </body>
