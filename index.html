@@ -8,259 +8,474 @@
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap');
 
     :root{
-      --text:#fff9ea;
-      --soft:rgba(255,249,234,.84);
-      --gold:#f8de8b;
-      --line:rgba(255,255,255,.26);
-      --panel:rgba(24,18,24,.34);
-      --panel-border:rgba(255,238,194,.28);
-      --shadow:rgba(0,0,0,.38);
-      --cyan:#59e1ff;
-      --violet:#b44cff;
+      --bg:#f6edd7;
+      --text:#2f2a24;
+      --soft:#5c5146;
+      --panel:rgba(255,248,233,.70);
+      --panel-border:rgba(255,255,255,.55);
+      --gold:#d9b85f;
+      --cyan:#6bdcff;
+      --violet:#9d6cff;
+      --shadow:rgba(0,0,0,.14);
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
-
+    html{scroll-behavior:smooth}
     body{
-      min-height:100vh;
       font-family:'Inter',sans-serif;
       color:var(--text);
-      background:
-        linear-gradient(rgba(25,15,10,.18), rgba(25,15,10,.32)),
-        url('retro-landscape.png') center center / cover no-repeat fixed;
+      background:var(--bg);
       overflow-x:hidden;
+    }
+
+    .hero{
       position:relative;
-    }
-
-    body::before{
-      content:'';
-      position:fixed;
-      inset:0;
-      background:
-        radial-gradient(circle at 50% 18%, rgba(255,241,179,.16), transparent 32%),
-        linear-gradient(180deg, rgba(255,240,195,.08), transparent 28%, rgba(255,210,120,.08) 72%, rgba(20,12,16,.12) 100%),
-        repeating-linear-gradient(
-          0deg,
-          rgba(255,255,255,.035) 0,
-          rgba(255,255,255,.035) 1px,
-          transparent 1px,
-          transparent 4px
-        );
-      pointer-events:none;
-      z-index:0;
-    }
-
-    .glow{
-      position:fixed;
-      inset:auto 0 0 0;
-      height:36vh;
-      background:linear-gradient(180deg, transparent, rgba(255,190,90,.08) 40%, rgba(255,190,90,.16));
-      pointer-events:none;
-      z-index:0;
-    }
-
-    .page{
-      position:relative;
-      z-index:1;
       min-height:100vh;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:2rem;
+      padding:clamp(1rem,2vw,2rem);
+      overflow:hidden;
+      isolation:isolate;
+      background:
+        linear-gradient(to bottom, rgba(255,248,220,.06), rgba(255,242,205,.12)),
+        url('retro-landscape.png') center 35% / cover no-repeat;
     }
 
-    .hero{
+    .hero::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 58% 20%, rgba(255,248,215,.42), transparent 18%),
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02) 45%, rgba(255,220,130,.10) 100%);
+      z-index:-2;
+    }
+
+    .hero::after{
+      content:'';
+      position:absolute;
+      inset:-10%;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,.035) 0px,
+          rgba(255,255,255,.035) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      opacity:.35;
+      z-index:-1;
+      pointer-events:none;
+    }
+
+    .sun-flare{
+      position:absolute;
+      top:8%;
+      left:58%;
+      width:min(44vw,520px);
+      aspect-ratio:1;
+      transform:translateX(-50%);
+      pointer-events:none;
+      background:
+        radial-gradient(circle, rgba(255,255,255,.95) 0 14%, rgba(255,240,172,.72) 18%, rgba(255,220,120,.22) 34%, transparent 62%);
+      filter:blur(2px);
+      animation:pulse 7s ease-in-out infinite;
+      mix-blend-mode:screen;
+    }
+
+    .rays{
+      position:absolute;
+      inset:-15%;
+      background:
+        conic-gradient(from 0deg at 58% 20%,
+          rgba(255,255,255,.00) 0deg,
+          rgba(255,247,211,.00) 18deg,
+          rgba(255,244,199,.34) 24deg,
+          rgba(255,244,199,.00) 33deg,
+          rgba(255,255,255,.00) 52deg,
+          rgba(255,243,180,.28) 60deg,
+          rgba(255,255,255,.00) 70deg,
+          rgba(255,255,255,.00) 100deg,
+          rgba(255,243,180,.20) 108deg,
+          rgba(255,255,255,.00) 118deg,
+          rgba(255,255,255,.00) 360deg);
+      opacity:.55;
+      transform-origin:58% 20%;
+      animation:slowRotate 28s linear infinite;
+      pointer-events:none;
+      mask-image:radial-gradient(circle at 58% 20%, black 0 18%, transparent 58%);
+    }
+
+    .floating{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+    }
+
+    .floating span{
+      position:absolute;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:rgba(255,247,220,.75);
+      box-shadow:0 0 14px rgba(255,236,176,.7);
+      animation:drift linear infinite;
+      opacity:.55;
+    }
+
+    .content{
+      position:relative;
       width:min(980px,100%);
       text-align:center;
-      padding:clamp(1.4rem,3vw,2rem);
+      padding-top:6rem;
+      padding-bottom:5rem;
     }
 
     .badge{
       display:inline-block;
       margin-bottom:1rem;
-      padding:.55rem .95rem;
-      border:1px solid rgba(255,255,255,.24);
+      padding:.55rem 1rem;
       border-radius:999px;
-      background:rgba(255,255,255,.10);
+      background:rgba(255,248,233,.46);
+      border:1px solid rgba(255,255,255,.56);
       backdrop-filter:blur(8px);
-      font-size:.78rem;
+      color:#8b6e22;
+      font-size:.82rem;
+      font-weight:700;
       letter-spacing:.18em;
       text-transform:uppercase;
-      color:var(--gold);
-      font-weight:700;
-      text-shadow:0 1px 8px rgba(0,0,0,.25);
     }
 
     h1{
       font-family:'Orbitron',sans-serif;
       font-size:clamp(3rem,10vw,7rem);
-      line-height:.95;
-      letter-spacing:.04em;
-      margin-bottom:.8rem;
+      line-height:.92;
       text-transform:uppercase;
-      color:#eafcff;
-      text-shadow:
-        0 2px 0 rgba(0,0,0,.15),
-        0 0 16px rgba(89,225,255,.35),
-        0 0 30px rgba(180,76,255,.18),
-        0 18px 35px rgba(0,0,0,.25);
+      margin-bottom:.7rem;
+      filter:drop-shadow(0 8px 22px rgba(0,0,0,.16));
     }
 
-    h1 .kay{
-      background:linear-gradient(180deg, #dffcff 0%, var(--cyan) 58%, #118fb6 100%);
+    .kay{
+      background:linear-gradient(180deg, #e6ffff 5%, var(--cyan) 60%, #2ea2c7 100%);
       -webkit-background-clip:text;
       background-clip:text;
       color:transparent;
     }
 
-    h1 .site{
-      background:linear-gradient(180deg, #efe1ff 0%, #cf7eff 54%, var(--violet) 100%);
+    .site{
+      background:linear-gradient(180deg, #efe2ff 0%, #bb8cff 58%, #8052ea 100%);
       -webkit-background-clip:text;
       background-clip:text;
       color:transparent;
     }
 
     .subtitle{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:1rem;
       font-family:'Orbitron',sans-serif;
-      font-size:clamp(1rem,2.1vw,1.6rem);
+      font-size:clamp(1rem,2vw,1.55rem);
       letter-spacing:.12em;
       text-transform:uppercase;
-      color:var(--gold);
-      margin-bottom:1.25rem;
-      text-shadow:0 2px 12px rgba(0,0,0,.3);
+      color:#f5e3a5;
+      text-shadow:0 2px 10px rgba(0,0,0,.2);
+      margin-bottom:1.35rem;
+      flex-wrap:wrap;
     }
 
-    .subtitle::before,
-    .subtitle::after{
+    .subtitle::before,.subtitle::after{
       content:'';
-      display:inline-block;
-      width:70px;
-      max-width:16vw;
+      width:min(120px,18vw);
       height:2px;
-      vertical-align:middle;
-      margin:0 .9rem;
-      background:linear-gradient(90deg, transparent, rgba(89,225,255,.95), rgba(180,76,255,.95), transparent);
       border-radius:999px;
+      background:linear-gradient(90deg, transparent, var(--cyan), var(--violet), transparent);
+      opacity:.9;
     }
 
-    .intro{
-      width:min(760px,100%);
-      margin:0 auto 2rem;
+    .panel{
+      width:min(850px,100%);
+      margin:0 auto;
       background:var(--panel);
       border:1px solid var(--panel-border);
+      border-radius:28px;
       backdrop-filter:blur(10px);
-      border-radius:24px;
-      padding:1.15rem 1.15rem 1.2rem;
-      box-shadow:0 18px 40px var(--shadow);
+      box-shadow:0 20px 40px var(--shadow);
+      padding:clamp(1.2rem,3vw,2rem);
     }
 
-    .intro p{
-      font-size:clamp(1rem,1.7vw,1.08rem);
-      line-height:1.8;
+    .panel p{
+      font-size:clamp(1.02rem,1.8vw,1.18rem);
+      line-height:1.9;
       color:var(--soft);
+      max-width:760px;
+      margin:0 auto;
     }
 
     .cards{
+      margin-top:1.35rem;
       display:grid;
-      grid-template-columns:repeat(3, minmax(0,1fr));
-      gap:1.15rem;
-      margin-top:1.3rem;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:1rem;
     }
 
     .card{
-      background:rgba(18,13,18,.42);
-      border:1px solid rgba(248,222,139,.24);
-      backdrop-filter:blur(8px);
-      border-radius:20px;
+      background:rgba(255,250,241,.54);
+      border:1px solid rgba(255,255,255,.6);
+      border-radius:22px;
       padding:1.25rem 1.1rem;
-      box-shadow:0 14px 28px rgba(0,0,0,.22);
+      box-shadow:0 12px 24px rgba(0,0,0,.08);
+      transition:transform .25s ease, box-shadow .25s ease;
     }
 
-    .icon{
-      font-size:1.9rem;
-      margin-bottom:.7rem;
-      display:block;
+    .card:hover{
+      transform:translateY(-8px);
+      box-shadow:0 18px 30px rgba(0,0,0,.12);
     }
 
+    .icon{display:block;font-size:1.8rem;margin-bottom:.65rem}
     .card h3{
       font-family:'Orbitron',sans-serif;
       font-size:1rem;
-      letter-spacing:.08em;
-      margin-bottom:.55rem;
-      color:var(--text);
+      margin-bottom:.6rem;
+      color:#493d35;
+    }
+    .card p{
+      font-size:.98rem;
+      line-height:1.7;
+      color:var(--soft);
     }
 
-    .card p{
-      color:var(--soft);
-      line-height:1.7;
-      font-size:.97rem;
+    .scroll-indicator{
+      margin-top:1.4rem;
+      display:inline-flex;
+      flex-direction:column;
+      align-items:center;
+      gap:.45rem;
+      color:#fff6dc;
+      text-decoration:none;
+      font-size:.82rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      text-shadow:0 2px 10px rgba(0,0,0,.2);
+    }
+
+    .mouse{
+      width:34px;height:56px;border:2px solid rgba(255,246,220,.9);border-radius:999px;position:relative;
+      background:rgba(255,255,255,.08);backdrop-filter:blur(6px)
+    }
+    .mouse::after{
+      content:'';
+      position:absolute;left:50%;top:10px;transform:translateX(-50%);
+      width:6px;height:11px;border-radius:999px;background:#fff6dc;
+      animation:scrollDot 1.8s infinite;
+    }
+
+    .section{
+      position:relative;
+      padding:5rem 1.2rem 6rem;
+      background:linear-gradient(180deg, #fff8e9 0%, #f6edd7 100%);
+    }
+
+    .section-inner{
+      width:min(980px,100%);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:1.3rem;
+      align-items:start;
+    }
+
+    .glass{
+      background:rgba(255,255,255,.68);
+      border:1px solid rgba(255,255,255,.85);
+      border-radius:26px;
+      padding:1.5rem;
+      box-shadow:0 16px 30px rgba(0,0,0,.06);
+    }
+
+    .section h2{
+      font-family:'Orbitron',sans-serif;
+      font-size:clamp(1.5rem,3vw,2.3rem);
+      margin-bottom:1rem;
+      color:#473d32;
+    }
+
+    .section p{
+      color:#65584b;
+      line-height:1.9;
+      font-size:1rem;
+    }
+
+    .mini-list{
+      display:grid;
+      gap:.9rem;
+    }
+
+    .mini{
+      padding:1rem 1rem;
+      border-radius:18px;
+      background:rgba(248,241,223,.85);
+      border:1px solid rgba(223,208,171,.5);
+    }
+
+    .mini strong{
+      display:block;
+      margin-bottom:.35rem;
+      color:#534536;
+      letter-spacing:.06em;
     }
 
     footer{
-      position:fixed;
-      left:0;
-      right:0;
-      bottom:0;
-      z-index:1;
       text-align:center;
-      padding:1rem;
-      color:rgba(255,249,234,.82);
-      font-size:.8rem;
-      letter-spacing:.14em;
+      padding:1.2rem;
+      color:#7b6d5a;
+      font-size:.82rem;
+      letter-spacing:.12em;
       text-transform:uppercase;
-      text-shadow:0 2px 10px rgba(0,0,0,.32);
+      background:#f6edd7;
     }
 
-    footer span{color:var(--gold)}
+    @keyframes pulse{
+      0%,100%{transform:translateX(-50%) scale(1);opacity:.85}
+      50%{transform:translateX(-50%) scale(1.06);opacity:1}
+    }
+    @keyframes slowRotate{
+      from{transform:rotate(0deg)}
+      to{transform:rotate(360deg)}
+    }
+    @keyframes drift{
+      from{transform:translateY(110vh) translateX(0) scale(.8);opacity:0}
+      15%{opacity:.6}
+      to{transform:translateY(-20vh) translateX(60px) scale(1.2);opacity:0}
+    }
+    @keyframes scrollDot{
+      0%{opacity:0;transform:translateX(-50%) translateY(0)}
+      30%{opacity:1}
+      100%{opacity:0;transform:translateX(-50%) translateY(18px)}
+    }
 
     @media (max-width: 860px){
-      body{background-attachment:scroll}
-      .cards{grid-template-columns:1fr}
-      .subtitle::before,
-      .subtitle::after{width:36px;margin:0 .5rem}
-      .page{padding:1rem}
+      .hero{background-position:center center}
+      .content{padding-top:5rem}
+      .cards,.section-inner{grid-template-columns:1fr}
+      .subtitle::before,.subtitle::after{width:56px}
+    }
+
+    @media (max-width: 520px){
+      .hero{min-height:100svh}
+      .subtitle{gap:.5rem}
+      .subtitle::before,.subtitle::after{width:34px}
+      .panel{border-radius:22px}
+      .card,.glass{border-radius:20px}
     }
   </style>
 </head>
 <body>
-  <div class="glow"></div>
+  <section class="hero" id="top">
+    <div class="sun-flare"></div>
+    <div class="rays"></div>
+    <div class="floating" aria-hidden="true" id="floating"></div>
 
-  <main class="page">
-    <section class="hero">
+    <div class="content">
       <div class="badge">Retro trifft Natur</div>
       <h1><span class="kay">KAY</span><span class="site">SSITE</span></h1>
       <div class="subtitle">Ein neuer Morgen beginnt</div>
 
-      <div class="intro">
+      <div class="panel">
         <p>
           Etwas Neues entsteht. Mit Licht, Natur, Aufbruch und einem Hauch Retro.
-          Diese Seite soll warm, offen und hoffnungsvoll wirken – wie ein neuer Tag,
-          der gerade erst beginnt.
+          Diese Seite soll warm, klar und lebendig wirken – nicht schwer oder düster,
+          sondern wie ein frischer Morgen voller neuer Möglichkeiten.
+        </p>
+
+        <div class="cards">
+          <article class="card">
+            <span class="icon">🌅</span>
+            <h3>Sunrise</h3>
+            <p>Mehr Helligkeit, mehr Wärme und ein freundlicher erster Eindruck.</p>
+          </article>
+          <article class="card">
+            <span class="icon">🌿</span>
+            <h3>Nature</h3>
+            <p>Echte Landschaft, echte Ruhe und ein natürlicher, offener Charakter.</p>
+          </article>
+          <article class="card">
+            <span class="icon">✨</span>
+            <h3>In Bewegung</h3>
+            <p>Leichte Animationen machen die Seite lebendiger, ohne sie zu überladen.</p>
+          </article>
+        </div>
+      </div>
+
+      <a class="scroll-indicator" href="#more">
+        <span>Mehr entdecken</span>
+        <span class="mouse"></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section" id="more">
+    <div class="section-inner">
+      <div class="glass">
+        <h2>Klarer, heller, dynamischer</h2>
+        <p>
+          Diese Version setzt das Foto sauber als Bühne ein, ohne alles zu verdunkeln.
+          Der Inhalt liegt in einem hellen Glas-Panel, die Typografie bleibt retro,
+          und kleine Bewegungen im Licht sorgen dafür, dass die Seite lebendig wirkt.
         </p>
       </div>
 
-      <div class="cards">
-        <article class="card">
-          <span class="icon">🌅</span>
-          <h3>Sunrise</h3>
-          <p>Ein heller Anfang statt dunkler Stimmung – mit Sonne, Wärme und positiver Energie.</p>
-        </article>
-
-        <article class="card">
-          <span class="icon">🌿</span>
-          <h3>Nature</h3>
-          <p>Echtes Grün und Landschaft geben der Seite Ruhe, Natürlichkeit und Leben.</p>
-        </article>
-
-        <article class="card">
-          <span class="icon">✨</span>
-          <h3>Coming Soon</h3>
-          <p>Hier wächst Schritt für Schritt etwas Eigenes. Mehr Inhalte folgen bald.</p>
-        </article>
+      <div class="mini-list">
+        <div class="mini">
+          <strong>Kein Überlagern</strong>
+          Nur ein sauberer Haupttitel, keine doppelten Ebenen.
+        </div>
+        <div class="mini">
+          <strong>Scrollen funktioniert</strong>
+          Unter dem Hero-Bereich gibt es einen zweiten Abschnitt.
+        </div>
+        <div class="mini">
+          <strong>Sanfte Bewegung</strong>
+          Lichtstrahlen und schwebende Partikel bringen Dynamik hinein.
+        </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <footer>© 2026 <span>KAYSSITE</span> · Neues voraus</footer>
+  <footer>© 2026 KAYSSITE · Neues voraus</footer>
+
+  <script>
+    const floating = document.getElementById('floating');
+    for (let i = 0; i < 16; i++) {
+      const el = document.createElement('span');
+      const size = Math.random() * 8 + 4;
+      el.style.left = Math.random() * 100 + '%';
+      el.style.animationDuration = (12 + Math.random() * 16) + 's';
+      el.style.animationDelay = (Math.random() * 8) + 's';
+      el.style.width = size + 'px';
+      el.style.height = size + 'px';
+      el.style.opacity = 0.25 + Math.random() * 0.45;
+      floating.appendChild(el);
+    }
+
+    const hero = document.querySelector('.hero');
+    const rays = document.querySelector('.rays');
+    const flare = document.querySelector('.sun-flare');
+
+    window.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 10;
+      const y = (e.clientY / window.innerHeight - 0.5) * 8;
+      rays.style.transform = `translate(${x * 0.6}px, ${y * 0.4}px) rotate(${x * 0.2}deg)`;
+      flare.style.transform = `translateX(-50%) translate(${x * 0.8}px, ${y * 0.5}px)`;
+    });
+
+    window.addEventListener('scroll', () => {
+      const sc = window.scrollY;
+      hero.style.backgroundPosition = `center calc(35% + ${sc * 0.06}px)`;
+    }, { passive: true });
+  </script>
 </body>
 </html>
